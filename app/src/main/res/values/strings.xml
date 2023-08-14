@@ -2,5 +2,7 @@
     <string name="app_name">ToDoApp</string>
     <string name="country">Uganda</string>
     <string name="country_name">Kenya</string>
-    <string-array name="countries"> </string-array>
+    <string name="select">Select District</string>
+    <string name="district">Kampala</string>
+    <string-array name="countries"></string-array>
 </resources>
