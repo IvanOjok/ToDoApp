@@ -4,5 +4,8 @@
     <string name="country_name">Kenya</string>
     <string name="select">Select District</string>
     <string name="district">Kampala</string>
+    <string name="name">Ivan Ojok</string>
+    <string name="hello">Hello Lora, How are You doing</string>
+    <string name="date">Yesterday</string>
     <string-array name="countries"></string-array>
 </resources>
