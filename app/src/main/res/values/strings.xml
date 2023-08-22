@@ -7,5 +7,6 @@
     <string name="name">Ivan Ojok</string>
     <string name="hello">Hello Lora, How are You doing</string>
     <string name="date">Yesterday</string>
+    <string name="jog">Jogging</string>
     <string-array name="countries"></string-array>
 </resources>

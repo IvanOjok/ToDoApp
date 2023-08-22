@@ -2,33 +2,27 @@ package com.ivanojok.todoapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ivanojok.todoapp.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-//        val list = List<ChatModel>(10, {ChatModel()})
-        val list = ArrayList<ChatModel>()
-        list.add(ChatModel(R.drawable.attach, "Ivan Ojok", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.ic_launcher_foreground, "Ivan Peter", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.attach, "Ivan Dan", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.ic_launcher_background, "Ivan Micheal", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.attach, "Ivan Ojok", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.attach, "Mugisha Ojok", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.ic_launcher_foreground, "Nathan Ojok", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.attach, "Jamal Ojok", "Hello, How are You?", "Yesterday"))
-        list.add(ChatModel(R.drawable.attach, "Allan Ojok", "Hello, How are You?", "Yesterday"))
+        val list = ArrayList<ActivityModel>()
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
 
-        val myAdapter = MyAdapter(this, list)
-
-        val listView = binding.myList
-        listView.adapter = myAdapter
-        //binding.myList.adapter = myAdapter
-
-        //Create a gridview using any layout of Your own having two columns
-
+        val activityAdapter = ActivityAdapter(this, list)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.adapter = activityAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }

@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/adamina</item>
+        <item>@font/lato</item>
         <item>@font/lora</item>
     </array>
 </resources>
