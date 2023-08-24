@@ -1,49 +1,31 @@
 package com.ivanojok.todoapp
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
-import com.ivanojok.todoapp.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ivanojok.todoapp.data.ActivityAdapter
+import com.ivanojok.todoapp.data.ActivityModel
+import com.ivanojok.todoapp.data.ActivityStatus
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        val myList = binding.myList
-        val countryList = listOf("Uganda", "Kenya", "Tanzania", "Rwanda", "Burundi",
-            "DRC", "UK", "South Sudan", "USA", "Canada")
-        val cityList = listOf("Kampala", "Nairobi", "Dar e Salam", "Kigali", "Burundi",
-            "DRC", "UK", "South Sudan", "USA", "Canada")
+        val list = ArrayList<ActivityModel>()
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
+        list.add(ActivityModel(R.drawable.attach, "Check Mails", "5:05 am", "Check and reply to important emails concerning sales, meetings and many more", ActivityStatus.Pending))
 
-        //array adapter with single item view
-        //val arrayAdapter = ArrayAdapter(this, R.layout.list_item_layout, R.id.country_id, countryList)
-
-        //array adapter with multiple views
-        val arrayAdapter = NewAdapter(this, countryList, cityList)
-
-        myList.adapter = arrayAdapter
-
-
-
-    }
-}
-
-class NewAdapter(context:Context, val countryList: List<String>, val cityList: List<String>): ArrayAdapter<String>(context, R.layout.list_item_layout, R.id.country_id, countryList) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view =  super.getView(position, convertView, parent)
-
-        val countryId = view.findViewById<TextView>(R.id.country_id)
-        val cityId = view.findViewById<TextView>(R.id.city)
-        countryId.text = countryList[position]
-        cityId.text = cityList[position]
-
-        return view
+        val activityAdapter = ActivityAdapter(this, list)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.adapter = activityAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 }

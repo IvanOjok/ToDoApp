@@ -4,5 +4,11 @@
     <string name="country_name">Kenya</string>
     <string name="select">Select District</string>
     <string name="district">Kampala</string>
+    <string name="name">Ivan Ojok</string>
+    <string name="hello">Hello Lora, How are You doing</string>
+    <string name="date">Yesterday</string>
+    <string name="jog">Jogging</string>
+    <string name="description">wfefdwadws\ndewfef\nadafed\nadferfd\nadagvr\nqdegr\naqsdefv\nwdergthyjuytrewerteweew\nrqwrghtehtegtrherwr\nrhqetrwqrwrqew\ngqwergwqehet\naedgrettegfwref\nrwthefgewg\nwaefwerfgwe\nEFWFGWRFQWEGVQFA</string>
+    <string name="complete">Mark as Complete</string>
     <string-array name="countries"></string-array>
 </resources>
