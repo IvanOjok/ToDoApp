@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="@color/action_bar_color"
+        android:inputType="text|textCapCharacters"
         android:text="@string/complete"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

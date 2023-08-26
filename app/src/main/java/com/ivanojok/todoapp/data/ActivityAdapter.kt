@@ -2,6 +2,7 @@ package com.ivanojok.todoapp.data
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,10 +37,13 @@ class ActivityAdapter(var context:Context, var list: ArrayList<ActivityModel>): 
         holder.name.text = list[position].activityName
         holder.time.text = list[position].activityTime
 
+        Log.d("Height", holder.card.height.toString())
+        Log.d("Height", holder.card.width.toString())
         holder.card.setOnClickListener {
             var intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra("image", list[position].image)
             intent.putExtra("activityName", list[position].activityName)
+            intent.putExtra("activityStatus", list[position].activityStatus)
             context.startActivity(intent)
         }
     }
