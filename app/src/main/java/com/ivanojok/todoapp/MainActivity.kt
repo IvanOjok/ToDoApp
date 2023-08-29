@@ -1,9 +1,11 @@
 package com.ivanojok.todoapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ivanojok.todoapp.data.ActivityAdapter
 import com.ivanojok.todoapp.data.ActivityModel
 import com.ivanojok.todoapp.data.ActivityStatus
@@ -35,5 +37,12 @@ class MainActivity : AppCompatActivity() {
         //allow input of text for activity name,
         //allow input of text for activity description
         //allow input of date and time using a dialog
+
+        val bt = findViewById<FloatingActionButton>(R.id.add_new)
+        bt.setOnClickListener {
+            val intent = Intent(this, AddActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

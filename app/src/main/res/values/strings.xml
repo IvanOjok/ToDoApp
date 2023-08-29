@@ -10,5 +10,12 @@
     <string name="jog">Jogging</string>
     <string name="description">wfefdwadws\ndewfef\nadafed\nadferfd\nadagvr\nqdegr\naqsdefv\nwdergthyjuytrewerteweew\nrqwrghtehtegtrherwr\nrhqetrwqrwrqew\ngqwergwqehet\naedgrettegfwref\nrwthefgewg\nwaefwerfgwe\nEFWFGWRFQWEGVQFA</string>
     <string name="complete">Mark as Complete</string>
+    <string name="add_image">Add Image</string>
+    <string name="add_activity_name">Add Activity Name</string>
+    <string name="add_activity_description">Add Activity Description</string>
+    <string name="add_activity_date_and_time">Add Date and Time</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="add_time">Add Time</string>
+    <string name="add_date">Add Date</string>
     <string-array name="countries"></string-array>
 </resources>
