@@ -3,17 +3,30 @@ package com.ivanojok.todoapp
 import android.Manifest
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import com.ivanojok.todoapp.data.ActivityModel
+import com.ivanojok.todoapp.data.ActivityStatus
+import com.ivanojok.todoapp.data.DatabaseBuilder
 import com.ivanojok.todoapp.databinding.ActivityAddBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import java.util.Calendar
+import java.util.UUID
 
 
 class AddActivity : AppCompatActivity() {
@@ -21,10 +34,13 @@ class AddActivity : AppCompatActivity() {
     val cameraCode = 1
     val fileCode = 2
     lateinit var binding:ActivityAddBinding
+    var imageUri: Uri ?= null
+    var coroutineScope:CoroutineScope = CoroutineScope(Dispatchers.IO)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         val image  = binding.activityImageView
         image.setOnClickListener {
@@ -90,6 +106,28 @@ class AddActivity : AppCompatActivity() {
             )
             timePickerDialog.show()
         }
+
+        val dateTime =  binding.date.text.toString() + binding.time.text.toString()
+        binding.saveActivity.setOnClickListener {
+            coroutineScope.launch(Dispatchers.IO) {
+                val db = DatabaseBuilder().buildDB(this@AddActivity).activityDao().insertActivity(
+                    ActivityModel(
+                        1,
+                        imageUri.toString(),
+                        activityName,
+                        dateTime,
+                        activityDescription,
+                        ActivityStatus.Pending
+                    )
+                )
+                //create a notification
+
+                withContext(Dispatchers.Main) {
+                    startActivity(Intent(this@AddActivity, MainActivity::class.java))
+                }
+            }
+
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
@@ -99,7 +137,26 @@ class AddActivity : AppCompatActivity() {
         if (requestCode == cameraCode) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //Toast.makeText(this, "Camera Permission Granted", Toast.LENGTH_SHORT).show()
+                //val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.TITLE, "New Picture")
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+
+                //camera intent
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+                // set filename
+                val x = UUID.randomUUID()
+                //val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                val vFilename =  "$x.png"
+                val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+
+                // set direcory folder
+                val file = File(directory, vFilename);
+                val image_uri = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", file);
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+
                 startActivityForResult(takePictureIntent, cameraCode)
             } else {
                 Toast.makeText(this, "Camera Permission Denied", Toast.LENGTH_SHORT).show()
@@ -131,6 +188,7 @@ class AddActivity : AppCompatActivity() {
             binding.activityImageView.setImageBitmap(imageBitmap)
         } else if(requestCode == fileCode && resultCode == RESULT_OK) {
             val imageBitmap = data?.data
+            imageUri = imageBitmap
             binding.fileCapture.setImageURI(imageBitmap)
         }
     }
@@ -142,7 +200,27 @@ class AddActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this@AddActivity, arrayOf(permission), requestCode)
         } else {
             if (requestCode == 1) {
+
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.TITLE, "New Picture")
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+
+                //camera intent
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+                // set filename
+                val x = UUID.randomUUID()
+                //val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                val vFilename =  "$x.png"
+                val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+
+                // set direcory folder
+                val file = File(directory, vFilename);
+                val image_uri = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".provider", file);
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+
+
                 startActivityForResult(takePictureIntent, cameraCode)
             } else if(requestCode == 2) {
                 val filePictureIntent = Intent(MediaStore.ACTION_PICK_IMAGES)
@@ -152,4 +230,5 @@ class AddActivity : AppCompatActivity() {
 
         }
     }
+
 }

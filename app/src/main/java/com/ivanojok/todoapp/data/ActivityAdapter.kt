@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.ivanojok.todoapp.DetailsActivity
 import com.ivanojok.todoapp.R
@@ -33,7 +34,8 @@ class ActivityAdapter(var context:Context, var list: ArrayList<ActivityModel>): 
     }
 
     override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
-        holder.image.setImageResource(list[position].image)
+        //holder.image.setImageResource(list[position].image)
+        holder.image.setImageURI(list[position].image?.toUri())
         holder.name.text = list[position].activityName
         holder.time.text = list[position].activityTime
 
